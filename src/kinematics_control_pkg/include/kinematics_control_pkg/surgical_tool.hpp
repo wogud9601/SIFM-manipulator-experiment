@@ -17,6 +17,8 @@
 #include <vector>
 #include <math.h>
 #include <tuple>
+#include <algorithm>
+#include <iomanip>
 
 #include "hw_definition.hpp"
 
@@ -30,7 +32,6 @@
  * @param arc       degree of arc of the segment part (mm)
  * @param diameter  diameter of the segment (mm)
  * @param disWire   distance between the center and the center of ellipse (mm)
- * @param shift     center of wire in tilt direction shifted during pan motion
  */
 struct structure {
   int num_joint;
@@ -39,7 +40,7 @@ struct structure {
   float arc;
   float diameter;
   float disWire;
-  float shift;
+  float alpha;
 };
 
 class SurgicalTool
@@ -68,9 +69,10 @@ public:
   void init_surgicaltool(
     int num_joint,
     float arc,
+    float alpha,
     float diameter,
-    float disWire,
-    float shift
+    float disWire
+    // float shift
   );
 
   // **************************

@@ -14,7 +14,7 @@
 // Motor Parameters
 //===============================
 #define OP_MODE             0x08  // CSP:0x08 CSV:0x09
-#define NUM_OF_MOTORS       2
+#define NUM_OF_MOTORS       4
 #define GEAR_RATIO          51
 #define GEAR_RATIO_44       44
 #define GEAR_RATIO_3_9      3.9
@@ -36,18 +36,11 @@
 // Continuum Manipulator Paremeters
 //===============================
 #define DOF               1     // Degree of freedom
-
-#define NUM_OF_JOINT      7     // ea
-#define SEGMENT_ARC       15.0  // mm
-#define SEGMENT_DIAMETER  9     // mm
-#define WIRE_DISTANCE     3.63   // mm
-// #define NUM_OF_JOINT      8     // ea
-// #define SEGMENT_ARC       6.92  // mm
-// #define SEGMENT_DIAMETER  3     // mm
-// #define WIRE_DISTANCE     1.2   // mm
-
-#define SHIFT             5.41  // degree
-#define SHIFT_THRESHOLD   5.0   // deg
+#define NUM_OF_JOINT      5  // ea
+#define SEGMENT_ARC       6.92  // mm
+#define ALPHA             8.73  // mm
+#define SEGMENT_DIAMETER  3     // mm
+#define WIRE_DISTANCE     1.5   // mm
 
 #define MAX_BENDING_DEGREE   90.0 // degree
 #define MAX_FORCEPS_RAGNE_DEGREE 30.0  // degree

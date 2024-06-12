@@ -186,9 +186,9 @@ void KinematicsControlNode::cal_kinematics(double pAngle, double tAngle, double 
   this->surgical_tool_pose_.angular.z = pAngle * M_PI/180;
   this->ST_.get_bending_kinematic_result(this->current_pan_angle_, this->current_tilt_angle_, this->current_grip_angle_);
   
-  // std::cout << this->current_pan_angle_ << std::endl;
-  // std::cout << this->current_tilt_angle_ << std::endl;
-  // std::cout << this->current_grip_angle_ << std::endl;
+  std::cout << this->current_pan_angle_ << std::endl;
+  std::cout << this->current_tilt_angle_ << std::endl;
+  std::cout << this->current_grip_angle_ << std::endl;
 
   double f_val[5];
   f_val[0] = this->ST_.wrLengthEast_;
@@ -197,23 +197,27 @@ void KinematicsControlNode::cal_kinematics(double pAngle, double tAngle, double 
   f_val[3] = this->ST_.wrLengthNorth_;
   f_val[4] = this->ST_.wrLengthGrip;
   // std::cout << "--------------------------" << std::endl;
-  // std::cout << "East  : " << f_val[0] << " mm" << std::endl;
-  // std::cout << "West  : " << f_val[1] << " mm" << std::endl;
-  // std::cout << "South : " << f_val[2] << " mm" << std::endl;
-  // std::cout << "North : " << f_val[3] << " mm" << std::endl;
-  // std::cout << "Grip  : " << f_val[4] << " mm" << std::endl;
+  std::cout << "East  : " << f_val[0] << " mm" << std::endl;
+  std::cout << "West  : " << f_val[1] << " mm" << std::endl;
+  std::cout << "South : " << f_val[2] << " mm" << std::endl;
+  std::cout << "North : " << f_val[3] << " mm" << std::endl;
+  std::cout << "Grip  : " << f_val[4] << " mm" << std::endl;
 
   this->motor_control_target_val_.header.stamp = this->now();
   this->motor_control_target_val_.header.frame_id = "kinematics_motor_target_position";
-  this->motor_control_target_val_.target_position[0] = DIRECTION_COUPLER * f_val[0] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO, ENCODER_CHANNEL, ENCODER_RESOLUTION);
-  this->motor_control_target_val_.target_position[1] = DIRECTION_COUPLER * f_val[1] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO, ENCODER_CHANNEL, ENCODER_RESOLUTION);
-  // this->motor_control_target_val_.target_position[0] = this->motor_state_.actual_position[0] + DIRECTION_COUPLER * f_val[0] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO, ENCODER_CHANNEL, ENCODER_RESOLUTION);
-  // this->motor_control_target_val_.target_position[1] = this->motor_state_.actual_position[1] + DIRECTION_COUPLER * f_val[1] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO, ENCODER_CHANNEL, ENCODER_RESOLUTION);
+  // this->motor_control_target_val_.target_position[0] = DIRECTION_COUPLER * f_val[0] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO, ENCODER_CHANNEL, ENCODER_RESOLUTION);
+  // this->motor_control_target_val_.target_position[1] = DIRECTION_COUPLER * f_val[1] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO, ENCODER_CHANNEL, ENCODER_RESOLUTION);
+  this->motor_control_target_val_.target_position[0] = DIRECTION_COUPLER * f_val[0] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO_44, ENCODER_CHANNEL, ENCODER_RESOLUTION);
+  this->motor_control_target_val_.target_position[1] = DIRECTION_COUPLER * f_val[1] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO_44, ENCODER_CHANNEL, ENCODER_RESOLUTION);
+  this->motor_control_target_val_.target_position[2] = DIRECTION_COUPLER * f_val[2] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO_44, ENCODER_CHANNEL, ENCODER_RESOLUTION);
+  this->motor_control_target_val_.target_position[3] = DIRECTION_COUPLER * f_val[3] * 2 * gear_encoder_ratio_conversion(GEAR_RATIO_44, ENCODER_CHANNEL, ENCODER_RESOLUTION);
+
+  std::cout << "motor_target[0] : " << this->motor_control_target_val_.target_position[0] << std::endl;
+  std::cout << "motor_target[1] : " << this->motor_control_target_val_.target_position[1] << std::endl;
+  std::cout << "motor_target[2] : " << this->motor_control_target_val_.target_position[2] << std::endl;
+  std::cout << "motor_target[3] : " << this->motor_control_target_val_.target_position[3] << std::endl;
+
   
-  // this->motor_control_target_val_.target_position[2] = this->virtual_home_pos_[2]
-  //                                                           + DIRECTION_COUPLER * f_val[2] * gear_encoder_ratio_conversion(GEAR_RATIO_44, ENCODER_CHANNEL, ENCODER_RESOLUTION);
-  // this->motor_control_target_val_.target_position[3] = this->virtual_home_pos_[3]
-  //                                                           + DIRECTION_COUPLER * f_val[3] * gear_encoder_ratio_conversion(GEAR_RATIO_44, ENCODER_CHANNEL, ENCODER_RESOLUTION);
   // this->motor_control_target_val_.target_position[4] = this->virtual_home_pos_[4]
   //                                                           + DIRECTION_COUPLER * f_val[4] * gear_encoder_ratio_conversion(GEAR_RATIO_3_9, ENCODER_CHANNEL, ENCODER_RESOLUTION);
 
